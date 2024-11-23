@@ -1,0 +1,162 @@
+<main class="main container" id="main">
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">Gestión de Inscripciones</h2>
+      
+        <!-- Tabs para organizar las funcionalidades -->
+        <ul class="nav nav-tabs mb-3" id="inscripcionesTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link active"
+              id="registro-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#registro"
+              type="button"
+              role="tab"
+              aria-controls="registro"
+              aria-selected="true"
+            >
+              Registro de Inscripción
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
+              id="programa-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#programa"
+              type="button"
+              role="tab"
+              aria-controls="programa"
+              aria-selected="false"
+            >
+              Selección de Programa y Línea
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
+              id="pago-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#pago"
+              type="button"
+              role="tab"
+              aria-controls="pago"
+              aria-selected="false"
+            >
+              Pago de Inscripción
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
+              id="grupos-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#grupos"
+              type="button"
+              role="tab"
+              aria-controls="grupos"
+              aria-selected="false"
+            >
+              Formación de Grupos
+            </button>
+          </li>
+        </ul>
+      
+        <!-- Contenido de las pestañas -->
+        <div class="tab-content" id="inscripcionesTabsContent">
+          <!-- Registro de Inscripción -->
+          <div class="tab-pane fade show active" id="registro" role="tabpanel" aria-labelledby="registro-tab">
+            <h5>Registro de Inscripción</h5>
+            <form (submit)="onSubmitRegistro()">
+              <div class="mb-3">
+                <label for="nombreCompleto" class="form-label">Nombre Completo</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="nombreCompleto"
+                  [(ngModel)]="registro.nombreCompleto"
+                  name="nombreCompleto"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Correo Electrónico</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  [(ngModel)]="registro.email"
+                  name="email"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">Registrar</button>
+            </form>
+          </div>
+      
+          <!-- Selección de Programa y Línea -->
+          <div class="tab-pane fade" id="programa" role="tabpanel" aria-labelledby="programa-tab">
+            <h5>Seleccionar Programa y Línea de Investigación</h5>
+            <form (submit)="onSubmitPrograma()">
+              <div class="mb-3">
+                <label for="programa" class="form-label">Programa</label>
+                <select
+                  class="form-select"
+                  id="programa"
+                  [(ngModel)]="programaSeleccionado"
+                  name="programa"
+                  required
+                >
+                  <option *ngFor="let programa of programas" [value]="programa">{{ programa }}</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="lineaInvestigacion" class="form-label">Línea de Investigación</label>
+                <select
+                  class="form-select"
+                  id="lineaInvestigacion"
+                  [(ngModel)]="lineaSeleccionada"
+                  name="lineaInvestigacion"
+                  required
+                >
+                  <option *ngFor="let linea of lineasInvestigacion" [value]="linea">{{ linea }}</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary">Seleccionar</button>
+            </form>
+          </div>
+      
+          <!-- Pago de Inscripción -->
+          <div class="tab-pane fade" id="pago" role="tabpanel" aria-labelledby="pago-tab">
+            <h5>Pago de Inscripción</h5>
+            <p>Total a Pagar: <strong>{{ totalPago | currency }}</strong></p>
+            <button class="btn btn-success" (click)="realizarPago()">Realizar Pago</button>
+          </div>
+      
+          <!-- Formación de Grupos -->
+          <div class="tab-pane fade" id="grupos" role="tabpanel" aria-labelledby="grupos-tab">
+            <h5>Formación de Grupos</h5>
+            <form (submit)="onSubmitGrupo()">
+              <div class="mb-3">
+                <label for="nombreEstudiante" class="form-label">Agregar Estudiante</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="nombreEstudiante"
+                  [(ngModel)]="nuevoIntegrante"
+                  name="nombreEstudiante"
+                />
+              </div>
+              <button type="button" class="btn btn-secondary" (click)="agregarIntegrante()">Agregar</button>
+            </form>
+            <h6 class="mt-3">Miembros del Grupo:</h6>
+            <ul class="list-group">
+              <li *ngFor="let integrante of integrantes" class="list-group-item">{{ integrante }}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      
+
+</main>

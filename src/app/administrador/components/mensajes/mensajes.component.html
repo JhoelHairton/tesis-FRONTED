@@ -1,0 +1,72 @@
+<main class="main container" id="main">
+    <div class="container my-4">
+        <h2 class="text-center mb-4">Plataforma de Mensajes</h2>
+      
+        <div class="row">
+          <!-- Lista de contactos -->
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-header">
+                <h5>Contactos</h5>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li 
+                  *ngFor="let contacto of contactos" 
+                  class="list-group-item d-flex justify-content-between align-items-center"
+                  [class.active]="contactoSeleccionado === contacto"
+                  (click)="seleccionarContacto(contacto)">
+                  <div>
+                    <strong>{{ contacto.nombre }}</strong>
+                    <small class="text-muted d-block">{{ contacto.rol }}</small>
+                  </div>
+                  <span class="badge bg-primary rounded-pill" *ngIf="contacto.nuevosMensajes > 0">
+                    {{ contacto.nuevosMensajes }}
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+      
+          <!-- Área de chat -->
+          <div class="col-md-8">
+            <div class="card">
+              <div class="card-header">
+                <h5>Chat con {{ contactoSeleccionado?.nombre || '...' }}</h5>
+              </div>
+              <div class="card-body chat-area">
+                <div *ngIf="!contactoSeleccionado" class="text-center text-muted">
+                  <p>Selecciona un contacto para iniciar una conversación.</p>
+                </div>
+                <div *ngIf="contactoSeleccionado">
+                  <div *ngFor="let mensaje of mensajes[contactoSeleccionado.id]" [class.text-end]="mensaje.remitente === 'Administrador'">
+                    <p 
+                      class="badge bg-secondary p-2 d-inline-block" 
+                      [class.bg-primary]="mensaje.remitente === 'Administrador'">
+                      {{ mensaje.texto }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer" *ngIf="contactoSeleccionado">
+                <form (ngSubmit)="enviarMensaje()">
+                  <div class="input-group">
+                    <input 
+                      type="text" 
+                      class="form-control" 
+                      placeholder="Escribe un mensaje..." 
+                      [(ngModel)]="mensajeNuevo"
+                      name="mensajeNuevo"
+                      required>
+                    <button class="btn btn-primary" type="submit">Enviar</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+</main>
+
+
+

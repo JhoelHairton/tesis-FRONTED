@@ -1,0 +1,70 @@
+<main class="main container" id="main">
+    
+    <div class="container my-4">
+        <h2 class="text-center mb-4">Gestión de Pagos</h2>
+      
+        <!-- Tabla de pagos individuales -->
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+              <tr>
+                <th>Nombre del Estudiante</th>
+                <th>Programa</th>
+                <th>Monto</th>
+                <th>Fecha de Pago</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let pago of pagos">
+                <td>{{ pago.estudiante }}</td>
+                <td>{{ pago.programa }}</td>
+                <td>${{ pago.monto | number:'1.2-2' }}</td>
+                <td>{{ pago.fecha | date:'dd/MM/yyyy' }}</td>
+                <td>
+                  <span class="badge" [ngClass]="{
+                      'bg-success': pago.estado === 'Completado',
+                      'bg-warning': pago.estado === 'Pendiente',
+                      'bg-danger': pago.estado === 'Atrasado'
+                    }">
+                    {{ pago.estado }}
+                  </span>
+                </td>
+                <td>
+                  <button class="btn btn-info btn-sm" (click)="verDetallesPago(pago)">Ver Detalles</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      
+        <!-- Modal para detalles del pago y generación de comprobantes -->
+        <div class="modal fade" id="detallePagoModal" tabindex="-1" aria-labelledby="detallePagoModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="detallePagoModalLabel">Detalles del Pago</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <p><strong>Estudiante:</strong> {{ pagoSeleccionado?.estudiante }}</p>
+                <p><strong>Programa:</strong> {{ pagoSeleccionado?.programa }}</p>
+                <p><strong>Monto:</strong> ${{ pagoSeleccionado?.monto | number:'1.2-2' }}</p>
+                <p><strong>Fecha de Pago:</strong> {{ pagoSeleccionado?.fecha | date:'dd/MM/yyyy' }}</p>
+                <p><strong>Estado:</strong> {{ pagoSeleccionado?.estado }}</p>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-primary" (click)="generarFactura()">Generar Factura</button>
+                <button class="btn btn-secondary" (click)="generarComprobante()">Generar Comprobante</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+</main>
+
+
+
+

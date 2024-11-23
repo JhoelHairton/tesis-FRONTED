@@ -1,0 +1,96 @@
+<main class="main container" id="main">
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">Mi Perfil</h2>
+      
+        <!-- Información Personal -->
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Información Personal</h5>
+          </div>
+          <div class="card-body">
+            <form (submit)="guardarCambios()">
+              <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre Completo</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="nombre"
+                  [(ngModel)]="usuario.nombre"
+                  name="nombre"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Correo Electrónico</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  [(ngModel)]="usuario.email"
+                  name="email"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="telefono" class="form-label">Teléfono</label>
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="telefono"
+                  [(ngModel)]="usuario.telefono"
+                  name="telefono"
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            </form>
+          </div>
+        </div>
+      
+        <!-- Cambiar Contraseña -->
+        <div class="card">
+          <div class="card-header bg-secondary text-white">
+            <h5 class="mb-0">Cambiar Contraseña</h5>
+          </div>
+          <div class="card-body">
+            <form (submit)="cambiarContrasena()">
+              <div class="mb-3">
+                <label for="contrasenaActual" class="form-label">Contraseña Actual</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="contrasenaActual"
+                  [(ngModel)]="contrasenaActual"
+                  name="contrasenaActual"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="nuevaContrasena" class="form-label">Nueva Contraseña</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="nuevaContrasena"
+                  [(ngModel)]="nuevaContrasena"
+                  name="nuevaContrasena"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="confirmarContrasena" class="form-label">Confirmar Contraseña</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="confirmarContrasena"
+                  [(ngModel)]="confirmarContrasena"
+                  name="confirmarContrasena"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-secondary">Cambiar Contraseña</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+
+</main>

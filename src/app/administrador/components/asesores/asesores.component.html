@@ -1,0 +1,102 @@
+<main class="main container"  id="main">
+
+    <div class="container my-4">
+        <h2 class="text-center mb-4">Gestión de Asesores</h2>
+      
+        <!-- Sección de búsqueda -->
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <input type="text" class="form-control" placeholder="Buscar asesor..." [(ngModel)]="searchTerm">
+          </div>
+          <div class="col-md-3">
+            <button class="btn btn-primary w-100" (click)="buscarAsesor()">Buscar</button>
+          </div>
+        </div>
+      
+        <!-- Tabla de asesores -->
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+              <tr>
+                <th>Nombre del Asesor</th>
+                <th>Calificación</th>
+                <th>Disponibilidad</th>
+                <th>Proyectos Asignados</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let asesor of asesoresFiltrados">
+                <td>{{ asesor.nombre }}</td>
+                <td>
+                  <span *ngFor="let star of calcularEstrellas(asesor.calificacion)" class="text-warning">&#9733;</span>
+                </td>
+                <td>
+                  <span class="badge" [ngClass]="{
+                      'bg-success': asesor.disponible,
+                      'bg-danger': !asesor.disponible
+                    }">
+                    {{ asesor.disponible ? 'Disponible' : 'No Disponible' }}
+                  </span>
+                </td>
+                <td>{{ asesor.proyectosAsignados }}/3</td>
+                <td>
+                  <button class="btn btn-info btn-sm me-2" (click)="asignarProyecto(asesor)" [disabled]="!asesor.disponible || asesor.proyectosAsignados >= 3">
+                    Asignar Proyecto
+                  </button>
+                  <button class="btn btn-secondary btn-sm" (click)="verSolicitudes(asesor)">Ver Solicitudes</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      
+        <!-- Modal para la asignación de proyecto -->
+        <div class="modal fade" id="proyectoModal" tabindex="-1" aria-labelledby="proyectoModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="proyectoModalLabel">Asignar Proyecto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <p>Selecciona un proyecto para el asesor: <strong>{{ asesorSeleccionado?.nombre }}</strong></p>
+                <select class="form-select" [(ngModel)]="proyectoSeleccionado">
+                  <option *ngFor="let proyecto of proyectosDisponibles" [value]="proyecto">
+                    {{ proyecto.nombre }}
+                  </option>
+                </select>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="confirmarAsignacionProyecto()">Asignar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Modal para solicitudes de asesoría -->
+        <div class="modal fade" id="solicitudesModal" tabindex="-1" aria-labelledby="solicitudesModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="solicitudesModalLabel">Solicitudes de Asesoría</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <p>Solicitudes pendientes para el asesor: <strong>{{ asesorSeleccionado?.nombre }}</strong></p>
+                <ul class="list-group">
+                  <li *ngFor="let solicitud of solicitudesPendientes" class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ solicitud.estudiante }}
+                    <div>
+                      <button class="btn btn-success btn-sm me-2" (click)="aceptarSolicitud(solicitud)">Aceptar</button>
+                      <button class="btn btn-danger btn-sm" (click)="rechazarSolicitud(solicitud)">Rechazar</button>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+</main>

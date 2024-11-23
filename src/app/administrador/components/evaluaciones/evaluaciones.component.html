@@ -1,0 +1,74 @@
+<main class="main container" id="main">
+
+    <div class="container my-4">
+        <h2 class="text-center mb-4">Evaluación de Proyectos</h2>
+      
+        <!-- Formulario para asignar evaluadores a proyectos -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Asignar Evaluador a Proyecto</h5>
+            <form (ngSubmit)="asignarEvaluador()">
+              <div class="mb-3">
+                <label for="proyecto" class="form-label">Proyecto</label>
+                <select class="form-select" id="proyecto" [(ngModel)]="asignacionSeleccionada.proyecto" name="proyecto" required>
+                  <option *ngFor="let proyecto of proyectos" [value]="proyecto">{{ proyecto.nombre }}</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="evaluador" class="form-label">Evaluador</label>
+                <select class="form-select" id="evaluador" [(ngModel)]="asignacionSeleccionada.evaluador" name="evaluador" required>
+                  <option *ngFor="let evaluador of evaluadores" [value]="evaluador">{{ evaluador.nombre }}</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary">Asignar Evaluador</button>
+            </form>
+          </div>
+        </div>
+      
+        <!-- Tabla de proyectos con evaluadores asignados -->
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+              <tr>
+                <th>Nombre del Proyecto</th>
+                <th>Evaluadores Asignados</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let proyecto of proyectos">
+                <td>{{ proyecto.nombre }}</td>
+                <td>
+                  <ul class="list-unstyled mb-0">
+                    <li *ngFor="let evaluador of proyecto.evaluadores">{{ evaluador.nombre }}</li>
+                  </ul>
+                </td>
+                <td>
+                  <button class="btn btn-info btn-sm" (click)="verEvaluaciones(proyecto)">Ver Evaluaciones</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      
+        <!-- Modal para revisar evaluaciones -->
+        <div class="modal fade" id="evaluacionModal" tabindex="-1" aria-labelledby="evaluacionModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="evaluacionModalLabel">Detalles de Evaluación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <p><strong>Proyecto:</strong> {{ proyectoSeleccionado?.nombre }}</p>
+                <p><strong>Evaluador:</strong> {{ evaluacionSeleccionada?.evaluador }}</p>
+                <p><strong>Calificación:</strong> {{ evaluacionSeleccionada?.calificacion }}</p>
+                <p><strong>Feedback:</strong></p>
+                <p>{{ evaluacionSeleccionada?.feedback }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+</main>

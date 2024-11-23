@@ -1,0 +1,38 @@
+.chat-container {
+    height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .message-evaluador {
+    text-align: right;
+    background-color: #d1ecf1;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 8px;
+    display: inline-block;
+    max-width: 80%;
+  }
+  
+  .message-otro {
+    text-align: left;
+    background-color: #e2e3e5;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 8px;
+    display: inline-block;
+    max-width: 80%;
+  }
+  
+  .card-header {
+    text-align: center;
+  }
+  
+  .input-group {
+    display: flex;
+    align-items: center;
+  }
+  

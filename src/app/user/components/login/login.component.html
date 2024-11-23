@@ -1,0 +1,63 @@
+<body>
+  <!-- LOGIN FORM CREATION -->
+  <div class="background"></div>
+  <div class="container">
+    <div class="item">
+      <h2 class="logo"><i class='bx bxl-xing'></i>Universidad Peruana Union</h2>
+      <div class="text-item">
+        <h2>Bienvenido! <br><span>
+          Portal de Posgrado
+          </span></h2>
+        <p>"Gestiona tu progreso académico de manera eficiente. Accede a tus cursos, programas, inscripciones y más."</p>
+        <div class="social-icon">
+          <a href="#"><i class='bx bxl-facebook'></i></a>
+          <a href="#"><i class='bx bxl-twitter'></i></a>
+          <a href="#"><i class='bx bxl-youtube'></i></a>
+          <a href="#"><i class='bx bxl-instagram'></i></a>
+          <a href="#"><i class='bx bxl-linkedin'></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="login-section">
+      <div class="form-box login">
+
+
+        <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+          <h2>LOGIN</h2>
+          <!-- Campo de Correo Electrónico -->
+          <div class="input-box">
+            <span class="icon"><i class='bx bxs-envelope'></i></span>
+            <input style="color: rgb(34, 33, 33);" type="email" id="email" name="email" [(ngModel)]="loginData.email" required #email="ngModel">
+            <label for="email">Correo Electrónico</label>
+            <div *ngIf="email.invalid && email.touched" class="error">
+              El correo electrónico es obligatorio y debe ser válido.
+            </div>
+          </div>
+        
+          <!-- Campo de Contraseña -->
+          <div class="input-box">
+            <span class="icon"><i class='bx bxs-lock-alt'></i></span>
+            <input style="color: rgb(255, 255, 255);" type="password" id="password" name="password" [(ngModel)]="loginData.password" required #password="ngModel">
+            <label for="password">Contraseña</label>
+            <div *ngIf="password.invalid && password.touched" class="error">
+              La contraseña es obligatoria.
+            </div>
+          </div>
+        
+          <!-- Mensaje de error de autenticación -->
+          <div *ngIf="loginError" class="error-message">
+            Credenciales incorrectas. Por favor, inténtelo de nuevo.
+          </div>
+        
+          <!-- Botón de Enviar -->
+          <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary">
+            Iniciar Sesión
+          </button>
+        </form>
+        
+
+      </div>
+
+    </div>
+  </div>
+</body>

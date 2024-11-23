@@ -1,0 +1,120 @@
+<main class="main container" id="main">
+
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">Gestión de Archivos y Comunicación</h2>
+      
+        <div class="row">
+          <!-- Archivos -->
+          <div class="col-md-8">
+            <!-- Tabla de Archivos -->
+            <div class="card mb-4">
+              <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Archivos Subidos</h5>
+              </div>
+              <div class="card-body">
+                <table class="table table-hover table-bordered">
+                  <thead class="table-dark">
+                    <tr>
+                      <th>#</th>
+                      <th>Nombre del Archivo</th>
+                      <th>Tamaño</th>
+                      <th>Fecha</th>
+                      <th>Estado</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let archivo of archivos; let i = index">
+                      <td>{{ i + 1 }}</td>
+                      <td>{{ archivo.nombre }}</td>
+                      <td>{{ archivo.tamano }} MB</td>
+                      <td>{{ archivo.fecha | date: 'mediumDate' }}</td>
+                      <td>
+                        <span
+                          class="badge"
+                          [ngClass]="{
+                            'bg-success': archivo.estado === 'Revisado',
+                            'bg-warning': archivo.estado === 'Pendiente'
+                          }"
+                        >
+                          {{ archivo.estado }}
+                        </span>
+                      </td>
+                      <td>
+                        <button class="btn btn-primary btn-sm" (click)="descargarArchivo(archivo)">
+                          Descargar
+                        </button>
+                        <button
+                          class="btn btn-secondary btn-sm"
+                          (click)="verComentarios(archivo)"
+                          *ngIf="archivo.comentarios.length > 0"
+                        >
+                          Ver Comentarios
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+      
+            <!-- Subir Archivos -->
+            <div class="card mb-4">
+              <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">Subir Nuevo Archivo</h5>
+              </div>
+              <div class="card-body">
+                <form (submit)="subirArchivo()">
+                  <div class="mb-3">
+                    <input type="file" class="form-control" (change)="cargarArchivo($event)" required />
+                  </div>
+                  <button type="submit" class="btn btn-secondary">Subir Archivo</button>
+                </form>
+              </div>
+            </div>
+          </div>
+      
+          <!-- Chat -->
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-header bg-info text-white">
+                <h5 class="mb-0">Chat con Asesor</h5>
+              </div>
+              <div class="card-body chat-container">
+                <!-- Mensajes -->
+                <div *ngFor="let mensaje of mensajes" class="mb-3">
+                  <div
+                    [class]="mensaje.emisor === 'Estudiante' ? 'message-student' : 'message-asesor'"
+                  >
+                    <p class="mb-1"><strong>{{ mensaje.emisor }}:</strong></p>
+                    <p>{{ mensaje.contenido }}</p>
+                    <p class="text-muted text-end" style="font-size: 0.8rem;">
+                      {{ mensaje.fecha | date: 'short' }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <!-- Enviar Mensaje -->
+                <form (submit)="enviarMensaje()">
+                  <div class="input-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      [(ngModel)]="nuevoMensaje"
+                      name="nuevoMensaje"
+                      placeholder="Escribe tu mensaje..."
+                      required
+                    />
+                    <button type="submit" class="btn btn-info">Enviar</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+      
+</main>

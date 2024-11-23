@@ -1,0 +1,71 @@
+<main class="main container" id="main">
+    <div class="container my-4">
+        <h2 class="text-center mb-4">Gestión de Proyectos</h2>
+      
+        <!-- Formulario para añadir un nuevo proyecto -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Añadir/Editar Proyecto</h5>
+            <form (ngSubmit)="guardarProyecto()">
+              <div class="mb-3">
+                <label for="nombreProyecto" class="form-label">Nombre del Proyecto</label>
+                <input type="text" class="form-control" id="nombreProyecto" [(ngModel)]="proyectoSeleccionado.nombre" name="nombreProyecto" required>
+              </div>
+              <div class="mb-3">
+                <label for="descripcion" class="form-label">Descripción</label>
+                <textarea class="form-control" id="descripcion" rows="3" [(ngModel)]="proyectoSeleccionado.descripcion" name="descripcion"></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="grupo" class="form-label">Asignar a Grupo</label>
+                <select class="form-select" id="grupo" [(ngModel)]="proyectoSeleccionado.grupo" name="grupo" required>
+                  <option *ngFor="let grupo of grupos" [value]="grupo">{{ grupo.nombre }}</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary">{{ proyectoSeleccionado.id ? 'Actualizar' : 'Agregar' }}</button>
+              <button type="button" class="btn btn-secondary ms-2" (click)="cancelarEdicion()">Cancelar</button>
+            </form>
+          </div>
+        </div>
+      
+        <!-- Tabla de proyectos -->
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+              <tr>
+                <th>Nombre del Proyecto</th>
+                <th>Grupo Asignado</th>
+                <th>Etapa Actual</th>
+                <th>Progreso</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let proyecto of proyectos">
+                <td>{{ proyecto.nombre }}</td>
+                <td>{{ proyecto.grupo.nombre }}</td>
+                <td>{{ proyecto.etapa }}</td>
+                <td>
+                  <div class="progress">
+                    <div class="progress-bar" role="progressbar" [style.width.%]="calcularProgreso(proyecto.etapa)" aria-valuenow="calcularProgreso(proyecto.etapa)" aria-valuemin="0" aria-valuemax="100">
+                      {{ calcularProgreso(proyecto.etapa) }}%
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <button class="btn btn-info btn-sm me-2" (click)="editarProyecto(proyecto)">Editar</button>
+                  <button class="btn btn-secondary btn-sm me-2" (click)="actualizarEtapa(proyecto)">Actualizar Etapa</button>
+                  <button class="btn btn-danger btn-sm" (click)="eliminarProyecto(proyecto)">Eliminar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+</main>
+
+
+
+
+
+

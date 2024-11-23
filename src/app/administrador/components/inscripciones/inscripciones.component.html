@@ -1,0 +1,123 @@
+<main class="main container" id="main">
+    <div class="container my-4">
+        <h2 class="text-center mb-4">Gestión de Inscripciones</h2>
+      
+        <!-- Sección de búsqueda -->
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <input type="text" class="form-control" placeholder="Buscar estudiante..." [(ngModel)]="searchTerm">
+          </div>
+          <div class="col-md-3">
+            <button class="btn btn-primary w-100" (click)="buscarEstudiante()">Buscar</button>
+          </div>
+        </div>
+      
+        <!-- Tabla de estudiantes -->
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+              <tr>
+                <th>Nombre del Estudiante</th>
+                <th>Programa</th>
+                <th>Estado de Inscripción</th>
+                <th>Etapa</th>
+                <th>Pago</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let estudiante of estudiantesFiltrados">
+                <td>{{ estudiante.nombre }}</td>
+                <td>{{ estudiante.programa }}</td>
+                <td>
+                  <span class="badge" [ngClass]="{
+                      'bg-success': estudiante.estado === 'Completado',
+                      'bg-warning': estudiante.estado === 'En Proceso',
+                      'bg-danger': estudiante.estado === 'Pendiente'
+                    }">
+                    {{ estudiante.estado }}
+                  </span>
+                </td>
+                <td>{{ estudiante.etapa }}</td>
+                <td>
+                  <span class="badge" [ngClass]="{
+                      'bg-success': estudiante.pago === 'Pagado',
+                      'bg-danger': estudiante.pago === 'Pendiente'
+                    }">
+                    {{ estudiante.pago }}
+                  </span>
+                </td>
+                <td>
+                  <button class="btn btn-info btn-sm me-2" (click)="verDetalles(estudiante)">Detalles</button>
+                  <button class="btn btn-primary btn-sm me-2" (click)="asignarProyecto(estudiante)">Asignar Proyecto</button>
+                  <button class="btn btn-secondary btn-sm" (click)="gestionarGrupo(estudiante)">Gestionar Grupo</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      
+        <!-- Modal de detalles del estudiante -->
+        <div class="modal fade" id="detallesModal" tabindex="-1" aria-labelledby="detallesModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="detallesModalLabel">Detalles del Estudiante</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <!-- Información detallada del estudiante -->
+                <p><strong>Nombre:</strong> {{ estudianteSeleccionado?.nombre }}</p>
+                <p><strong>Programa:</strong> {{ estudianteSeleccionado?.programa }}</p>
+                <p><strong>Etapa:</strong> {{ estudianteSeleccionado?.etapa }}</p>
+                <p><strong>Estado de Inscripción:</strong> {{ estudianteSeleccionado?.estado }}</p>
+                <p><strong>Pago:</strong> {{ estudianteSeleccionado?.pago }}</p>
+                <!-- Más detalles aquí -->
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Modal para la asignación de proyecto -->
+        <div class="modal fade" id="proyectoModal" tabindex="-1" aria-labelledby="proyectoModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="proyectoModalLabel">Asignar Proyecto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <p>Selecciona un proyecto para el estudiante: <strong>{{ estudianteSeleccionado?.nombre }}</strong></p>
+                <select class="form-select" [(ngModel)]="proyectoSeleccionado">
+                  <option *ngFor="let proyecto of proyectosDisponibles" [value]="proyecto">
+                    {{ proyecto.nombre }}
+                  </option>
+                </select>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="confirmarAsignacionProyecto()">Asignar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Modal para gestionar grupo -->
+        <div class="modal fade" id="grupoModal" tabindex="-1" aria-labelledby="grupoModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="grupoModalLabel">Gestionar Grupo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <p>Administrar el grupo para el estudiante: <strong>{{ estudianteSeleccionado?.nombre }}</strong></p>
+                <!-- Aquí puedes añadir lógica para agregar/eliminar estudiantes del grupo -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+</main>
+
+

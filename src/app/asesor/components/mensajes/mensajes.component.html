@@ -1,0 +1,80 @@
+<main class="main container" id="main">
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">Mensajes</h2>
+      
+        <div class="row">
+          <!-- Lista de Estudiantes (Conversaciones) -->
+          <div class="col-md-4">
+            <div class="list-group">
+              <h5 class="mb-3">Estudiantes</h5>
+              <button
+                type="button"
+                *ngFor="let estudiante of estudiantes"
+                class="list-group-item list-group-item-action"
+                [class.active]="estudianteSeleccionado === estudiante"
+                (click)="seleccionarEstudiante(estudiante)"
+              >
+                {{ estudiante.nombre }}
+                <span
+                  class="badge bg-primary rounded-pill"
+                  *ngIf="estudiante.nuevosMensajes > 0"
+                >
+                  {{ estudiante.nuevosMensajes }}
+                </span>
+              </button>
+            </div>
+          </div>
+      
+          <!-- Área de Chat -->
+          <div class="col-md-8">
+            <div class="card">
+              <div class="card-header bg-primary text-white">
+                <h5 class="card-title mb-0">
+                  {{ estudianteSeleccionado?.nombre || 'Selecciona un estudiante' }}
+                </h5>
+              </div>
+              <div class="card-body chat-container">
+                <!-- Mensajes -->
+                <div *ngIf="estudianteSeleccionado; else noEstudiante">
+                  <div *ngFor="let mensaje of estudianteSeleccionado.mensajes" class="mb-3">
+                    <div
+                      [class]="mensaje.emisor === 'Asesor' ? 'message-asesor' : 'message-estudiante'"
+                    >
+                      <p class="mb-1"><strong>{{ mensaje.emisor }}:</strong></p>
+                      <p>{{ mensaje.contenido }}</p>
+                      <p class="text-muted text-end" style="font-size: 0.8rem;">
+                        {{ mensaje.fecha | date: 'short' }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+      
+                <ng-template #noEstudiante>
+                  <p class="text-muted text-center">Selecciona un estudiante para iniciar la conversación.</p>
+                </ng-template>
+              </div>
+              <div class="card-footer">
+                <!-- Enviar mensaje -->
+                <form (submit)="enviarMensaje()">
+                  <div class="input-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      [(ngModel)]="nuevoMensaje"
+                      name="nuevoMensaje"
+                      placeholder="Escribe tu mensaje..."
+                      [disabled]="!estudianteSeleccionado"
+                      required
+                    />
+                    <button type="submit" class="btn btn-primary" [disabled]="!estudianteSeleccionado">
+                      Enviar
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+</main>

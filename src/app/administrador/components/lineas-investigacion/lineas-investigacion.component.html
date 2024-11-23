@@ -1,0 +1,86 @@
+<main class="main container" id="main">
+    <div class="container my-4">
+        <h2 class="text-center mb-4">Gestión de Líneas de Investigación</h2>
+      
+        <!-- Formulario para añadir una nueva línea de investigación -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Añadir/Editar Línea de Investigación</h5>
+            <form (ngSubmit)="guardarLineaInvestigacion()">
+              <div class="mb-3">
+                <label for="nombreLinea" class="form-label">Nombre de la Línea</label>
+                <input type="text" class="form-control" id="nombreLinea" [(ngModel)]="lineaSeleccionada.nombre" name="nombreLinea" required>
+              </div>
+              <div class="mb-3">
+                <label for="programa" class="form-label">Programa Asociado</label>
+                <select class="form-select" id="programa" [(ngModel)]="lineaSeleccionada.programa" name="programa" required>
+                  <option *ngFor="let programa of programas" [value]="programa">{{ programa }}</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary">{{ lineaSeleccionada.id ? 'Actualizar' : 'Agregar' }}</button>
+              <button type="button" class="btn btn-secondary ms-2" (click)="cancelarEdicion()">Cancelar</button>
+            </form>
+          </div>
+        </div>
+      
+        <!-- Tabla de líneas de investigación -->
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+              <tr>
+                <th>Nombre de la Línea</th>
+                <th>Programa Asociado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let linea of lineasInvestigacion">
+                <td>{{ linea.nombre }}</td>
+                <td>{{ linea.programa }}</td>
+                <td>
+                  <button class="btn btn-info btn-sm me-2" (click)="editarLinea(linea)">Editar</button>
+                  <button class="btn btn-danger btn-sm" (click)="eliminarLinea(linea)">Eliminar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      
+        <!-- Filtro de asesores y proyectos -->
+        <div class="card mt-4">
+          <div class="card-body">
+            <h5 class="card-title">Filtrar Asesores y Proyectos</h5>
+            <div class="mb-3">
+              <label for="filtroLinea" class="form-label">Seleccionar Línea de Investigación</label>
+              <select class="form-select" id="filtroLinea" [(ngModel)]="filtroLinea" (change)="filtrarAsesoresYProyectos()">
+                <option value="">Seleccionar</option>
+                <option *ngFor="let linea of lineasInvestigacion" [value]="linea.nombre">{{ linea.nombre }}</option>
+              </select>
+            </div>
+      
+            <div class="row">
+              <!-- Lista de asesores filtrados -->
+              <div class="col-md-6">
+                <h6>Asesores Disponibles</h6>
+                <ul class="list-group">
+                  <li *ngFor="let asesor of asesoresFiltrados" class="list-group-item">
+                    {{ asesor.nombre }} ({{ asesor.calificacion }} estrellas)
+                  </li>
+                </ul>
+              </div>
+              <!-- Lista de proyectos filtrados -->
+              <div class="col-md-6">
+                <h6>Proyectos Disponibles</h6>
+                <ul class="list-group">
+                  <li *ngFor="let proyecto of proyectosFiltrados" class="list-group-item">
+                    {{ proyecto.nombre }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+</main>
+

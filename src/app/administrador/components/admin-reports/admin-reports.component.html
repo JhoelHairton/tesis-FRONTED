@@ -1,0 +1,83 @@
+<main class="main container" id="main">
+
+    <div class="container my-4">
+        <h2 class="text-center mb-4">Informes y Estadísticas</h2>
+      
+        <!-- Selección de tipo de informe -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Seleccionar Tipo de Informe</h5>
+            <div class="row">
+              <div class="col-md-3">
+                <button class="btn btn-primary w-100 mb-2" (click)="seleccionarInforme('inscripciones')">Informe de Inscripciones</button>
+              </div>
+              <div class="col-md-3">
+                <button class="btn btn-primary w-100 mb-2" (click)="seleccionarInforme('pagos')">Informe de Pagos</button>
+              </div>
+              <div class="col-md-3">
+                <button class="btn btn-primary w-100 mb-2" (click)="seleccionarInforme('proyectos')">Informe de Proyectos</button>
+              </div>
+              <div class="col-md-3">
+                <button class="btn btn-primary w-100 mb-2" (click)="seleccionarInforme('asesores')">Rendimiento de Asesores</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Gráficos -->
+        <div *ngIf="tipoInforme" class="mb-4">
+          <h5 class="text-center mb-3">{{ tituloInforme }}</h5>
+          <div class="card">
+            <div class="card-body">
+              <ngx-charts-bar-vertical
+                *ngIf="tipoInforme === 'inscripciones'"
+                [scheme]="colorScheme"
+                [xAxis]="true"
+                [yAxis]="true"
+                [legend]="true"
+                [showXAxisLabel]="true"
+                [showYAxisLabel]="true"
+                xAxisLabel="Mes"
+                yAxisLabel="Inscripciones">
+              ></ngx-charts-bar-vertical>
+      
+              <ngx-charts-pie-chart
+                *ngIf="tipoInforme === 'pagos'"
+                [results]="dataPagos"
+                [scheme]="colorScheme"
+                [legend]="true"
+                [explodeSlices]="true"
+                [labels]="true"
+              ></ngx-charts-pie-chart>
+      
+              <ngx-charts-line-chart
+                *ngIf="tipoInforme === 'proyectos'"
+                [results]="dataProyectos"
+                [scheme]="colorScheme"
+                [xAxis]="true"
+                [yAxis]="true"
+                [legend]="true"
+                [showXAxisLabel]="true"
+                [showYAxisLabel]="true"
+                xAxisLabel="Etapas"
+                yAxisLabel="Progreso"
+              ></ngx-charts-line-chart>
+      
+              <ngx-charts-radar-chart
+                *ngIf="tipoInforme === 'asesores'"
+                [results]="dataAsesores"
+                [scheme]="colorScheme"
+                [legend]="true"
+              ></ngx-charts-radar-chart>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Botón para exportar informe -->
+        <div class="text-center" *ngIf="tipoInforme">
+          <button class="btn btn-success" (click)="exportarPDF()">Exportar Informe en PDF</button>
+        </div>
+      </div>
+      
+
+</main>

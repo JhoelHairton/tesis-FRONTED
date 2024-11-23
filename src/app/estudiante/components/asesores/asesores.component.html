@@ -1,0 +1,49 @@
+<main class="main container" id="main">
+
+
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">Seleccionar Asesor</h2>
+      
+        <!-- Tabla de Asesores -->
+        <table class="table table-hover table-bordered">
+          <thead class="table-dark">
+            <tr>
+              <th>Nombre</th>
+              <th>Línea de Investigación</th>
+              <th>Calificación</th>
+              <th>Disponibilidad</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let asesor of asesores">
+              <td>{{ asesor.nombre }}</td>
+              <td>{{ asesor.lineaInvestigacion }}</td>
+              <td>
+                <span *ngFor="let estrella of calcularEstrellas(asesor.calificacion)" class="text-warning">
+                  ★
+                </span>
+                <span *ngFor="let estrella of calcularEstrellas(5 - asesor.calificacion)" class="text-muted">
+                  ★
+                </span>
+              </td>
+              <td>
+                <span class="badge" [ngClass]="{ 'bg-success': asesor.disponibilidad, 'bg-danger': !asesor.disponibilidad }">
+                  {{ asesor.disponibilidad ? 'Disponible' : 'No Disponible' }}
+                </span>
+              </td>
+              <td>
+                <button
+                  class="btn btn-primary btn-sm"
+                  [disabled]="!asesor.disponibilidad"
+                  (click)="solicitarAsesoria(asesor)"
+                >
+                  Solicitar Asesoría
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+</main>

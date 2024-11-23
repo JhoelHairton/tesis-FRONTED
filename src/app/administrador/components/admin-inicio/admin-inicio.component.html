@@ -1,0 +1,66 @@
+<main class="main container" [class.main--fullwidth]="isSidebarHidden" id="main">
+  
+  <div class="container my-4">
+    <h2 class="text-center mb-4">Dashboard de Administración</h2>
+    
+    <!-- Fila para estadísticas generales -->
+    <div class="row">
+      <!-- Número de Inscripciones -->
+      <div class="col-md-4">
+        <div class="card text-white bg-primary mb-3">
+          <div class="card-header">Inscripciones</div>
+          <div class="card-body">
+            <h5 class="card-title">Número de Inscripciones</h5>
+            <p class="card-text display-4">{{ totalInscripciones }}</p>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Proyectos Activos -->
+      <div class="col-md-4">
+        <div class="card text-white bg-success mb-3">
+          <div class="card-header">Proyectos Activos</div>
+          <div class="card-body">
+            <h5 class="card-title">Número de Proyectos Activos</h5>
+            <p class="card-text display-4">{{ totalProyectosActivos }}</p>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Pagos Pendientes -->
+      <div class="col-md-4">
+        <div class="card text-white bg-danger mb-3">
+          <div class="card-header">Pagos Pendientes</div>
+          <div class="card-body">
+            <h5 class="card-title">Número de Pagos Pendientes</h5>
+            <p class="card-text display-4">{{ totalPagosPendientes }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Sección de gráficos adicionales (opcional) -->
+    <div class="row mt-5">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">Gráfico de Inscripciones</div>
+          <div class="card-body">
+            <!-- Aquí podrías integrar un gráfico (ej. con Chart.js) -->
+            <p>Gráfico de ejemplo</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">Gráfico de Proyectos Activos</div>
+          <div class="card-body">
+            <!-- Aquí podrías integrar un gráfico (ej. con Chart.js) -->
+            <p>Gráfico de ejemplo</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  </main>

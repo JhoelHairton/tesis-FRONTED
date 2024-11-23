@@ -1,0 +1,61 @@
+<nav class="sidebar" [class.sidebar--hidden]="isSidebarHidden" id="sidebar">
+    <div class="sidebar__container">
+       <div class="sidebar__user">
+          <div class="sidebar__img">
+             <img src="#" alt="image">
+          </div>
+
+          <div class="sidebar__info">
+             <h3>Estudiante</h3>
+             <span>rix123email.com</span>
+          </div>
+       </div>
+
+       <div class="sidebar__content">
+          <div>
+             <h3 class="sidebar__title">PANEL EVALUADOR</h3>
+
+             <div class="sidebar__list">
+                <a  routerLink="/dictaminador/dashboard" routerLinkActive="active" class="sidebar__link active-link">
+                   <i class="ri-pie-chart-2-fill"></i>
+                   <span>Inicio</span>
+                </a>
+                
+                <a routerLink="/dictaminador/dashboard/proyectos-asignados" routerLinkActive="active" class="sidebar__link">
+                   <i class="ri-wallet-3-fill"></i>
+                   <span>Proyectos Asignados </span>
+                </a>
+
+                <a routerLink="/dictaminador/dashboard/evaluacion-proyectos" routerLinkActive="active" class="sidebar__link">
+                   <i class="ri-calendar-fill"></i>
+                   <span>  Evaluaciones de <br> proyectos</span>
+                </a>
+
+                <a routerLink="/dictaminador/dashboard/mensajes" routerLinkActive="active" class="sidebar__link">
+                   <i class="ri-arrow-up-down-line"></i>
+                   <span>Mensajes</span>
+                </a>
+
+        
+               <a routerLink="/dictaminador/dashboard/perfil" routerLinkActive="active" class="sidebar__link">
+                  <i class="ri-bar-chart-box-fill"></i>
+                  <span>Perfil</span>
+               </a>
+             </div>
+          </div>
+       </div>
+
+       <div class="sidebar__actions">
+          <button>
+             <i class="ri-moon-clear-fill sidebar__link sidebar__theme" id="theme-button">
+                <span>Theme</span>
+             </i>
+          </button>
+
+          <button (click)="logout()" class="sidebar__link">
+             <i class="ri-logout-box-r-fill"></i>
+             <span>Log Out</span>
+          </button>
+       </div>
+    </div>
+ </nav>

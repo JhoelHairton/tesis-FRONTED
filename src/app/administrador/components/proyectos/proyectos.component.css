@@ -1,0 +1,25 @@
+.container {
+    max-width: 1000px;
+  }
+  
+  .card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  .card-title {
+    font-weight: bold;
+  }
+  
+  .table-responsive {
+    margin-top: 20px;
+  }
+  
+  .progress-bar {
+    font-size: 0.9rem;
+  }
+  
+  .btn-sm {
+    padding: 0.25rem 0.5rem;
+  }
+  

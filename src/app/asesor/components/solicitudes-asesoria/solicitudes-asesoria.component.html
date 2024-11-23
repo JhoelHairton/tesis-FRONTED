@@ -1,0 +1,44 @@
+<main class="main container" id="main">
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">Solicitudes de Asesoría</h2>
+      
+        <div *ngIf="solicitudes.length > 0; else noSolicitudes">
+          <!-- Tabla de Solicitudes -->
+          <table class="table table-hover table-bordered">
+            <thead class="table-dark">
+              <tr>
+                <th>#</th>
+                <th>Estudiante</th>
+                <th>Proyecto</th>
+                <th>Línea de Investigación</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let solicitud of solicitudes; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ solicitud.estudiante }}</td>
+                <td>{{ solicitud.proyecto }}</td>
+                <td>{{ solicitud.lineaInvestigacion }}</td>
+                <td>
+                  <button class="btn btn-success btn-sm" (click)="aceptarSolicitud(solicitud)">
+                    Aceptar
+                  </button>
+                  <button class="btn btn-danger btn-sm ms-2" (click)="rechazarSolicitud(solicitud)">
+                    Rechazar
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      
+        <!-- Mostrar mensaje si no hay solicitudes -->
+        <ng-template #noSolicitudes>
+          <div class="alert alert-warning text-center">
+            <strong>No tienes solicitudes de asesoría pendientes.</strong>
+          </div>
+        </ng-template>
+      </div>
+      
+</main>

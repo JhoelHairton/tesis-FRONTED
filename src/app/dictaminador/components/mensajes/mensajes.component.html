@@ -1,0 +1,88 @@
+<main class="main container" id="main">
+
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">Mensajes</h2>
+      
+        <div class="row">
+          <!-- Lista de conversaciones -->
+          <div class="col-md-4">
+            <div class="list-group">
+              <h5 class="mb-3">Conversaciones</h5>
+              <button
+                type="button"
+                *ngFor="let conversacion of conversaciones"
+                class="list-group-item list-group-item-action"
+                [class.active]="conversacionSeleccionada === conversacion"
+                (click)="seleccionarConversacion(conversacion)"
+              >
+                {{ conversacion.nombre }}
+                <span
+                  class="badge bg-primary rounded-pill"
+                  *ngIf="conversacion.mensajesNuevos > 0"
+                >
+                  {{ conversacion.mensajesNuevos }}
+                </span>
+              </button>
+            </div>
+          </div>
+      
+          <!-- Área de chat -->
+          <div class="col-md-8">
+            <div class="card">
+              <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">
+                  {{ conversacionSeleccionada?.nombre || 'Selecciona una conversación' }}
+                </h5>
+              </div>
+              <div class="card-body chat-container">
+                <!-- Mensajes -->
+                <div *ngIf="conversacionSeleccionada; else noSeleccionada">
+                  <div *ngFor="let mensaje of conversacionSeleccionada.mensajes" class="mb-3">
+                    <div
+                      [class]="mensaje.emisor === 'Evaluador' ? 'message-evaluador' : 'message-otro'"
+                    >
+                      <p class="mb-1"><strong>{{ mensaje.emisor }}:</strong></p>
+                      <p>{{ mensaje.contenido }}</p>
+                      <p class="text-muted text-end" style="font-size: 0.8rem;">
+                        {{ mensaje.fecha | date: 'short' }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+      
+                <ng-template #noSeleccionada>
+                  <p class="text-muted text-center">
+                    Selecciona una conversación para ver los mensajes.
+                  </p>
+                </ng-template>
+              </div>
+              <div class="card-footer">
+                <!-- Input para enviar mensajes -->
+                <form (submit)="enviarMensaje()">
+                  <div class="input-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      [(ngModel)]="nuevoMensaje"
+                      name="nuevoMensaje"
+                      placeholder="Escribe tu mensaje..."
+                      [disabled]="!conversacionSeleccionada"
+                      required
+                    />
+                    <button
+                      type="submit"
+                      class="btn btn-primary"
+                      [disabled]="!conversacionSeleccionada"
+                    >
+                      Enviar
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
+</main>

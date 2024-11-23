@@ -1,0 +1,55 @@
+<main class="main container" id="main">
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">Proyectos Asignados</h2>
+      
+        <!-- Tabla de proyectos asignados -->
+        <div *ngIf="proyectos.length > 0; else noProyectos">
+          <table class="table table-hover table-bordered">
+            <thead class="table-dark">
+              <tr>
+                <th>#</th>
+                <th>Nombre del Proyecto</th>
+                <th>Estudiantes</th>
+                <th>Línea de Investigación</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let proyecto of proyectos; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ proyecto.nombre }}</td>
+                <td>{{ proyecto.estudiantes.join(', ') }}</td>
+                <td>{{ proyecto.lineaInvestigacion }}</td>
+                <td>
+                  <span
+                    class="badge"
+                    [ngClass]="{
+                      'bg-success': proyecto.estado === 'Completo',
+                      'bg-warning': proyecto.estado === 'En Progreso',
+                      'bg-danger': proyecto.estado === 'Requiere Revisión'
+                    }"
+                  >
+                    {{ proyecto.estado }}
+                  </span>
+                </td>
+                <td>
+                  <button class="btn btn-primary btn-sm" (click)="evaluarProyecto(proyecto)">
+                    Evaluar
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      
+        <!-- Mensaje si no hay proyectos -->
+        <ng-template #noProyectos>
+          <div class="alert alert-warning text-center">
+            <strong>No tienes proyectos asignados para evaluar en este momento.</strong>
+          </div>
+        </ng-template>
+      </div>
+      
+      
+</main>

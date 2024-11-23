@@ -1,0 +1,28 @@
+.chat-area {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  
+  .chat-area .badge {
+    margin-bottom: 10px;
+  }
+  
+  .chat-area .text-end .badge {
+    float: right;
+    clear: both;
+  }
+  
+  .chat-area .text-end .badge.bg-primary {
+    background-color: #0d6efd !important;
+  }
+  
+  .card-footer {
+    background-color: #f8f9fa;
+  }
+  
+  .list-group-item.active {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: #fff;
+  }
+  

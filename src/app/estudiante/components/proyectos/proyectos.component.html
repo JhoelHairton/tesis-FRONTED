@@ -1,0 +1,56 @@
+<main class="main container" id="main">
+
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">Mis Proyectos</h2>
+      
+        <div *ngIf="proyectos.length > 0; else noProyectos">
+          <div class="row">
+            <!-- Iterar sobre proyectos asignados -->
+            <div *ngFor="let proyecto of proyectos" class="col-md-6 mb-4">
+              <div class="card">
+                <div class="card-header bg-primary text-white">
+                  <h5 class="card-title mb-0">{{ proyecto.titulo }}</h5>
+                </div>
+                <div class="card-body">
+                  <p><strong>Descripción:</strong> {{ proyecto.descripcion }}</p>
+                  <p><strong>Línea de Investigación:</strong> {{ proyecto.lineaInvestigacion }}</p>
+                  <p><strong>Estado:</strong> {{ proyecto.estado }}</p>
+                  <div class="progress mb-2">
+                    <div
+                      class="progress-bar"
+                      [ngClass]="{
+                        'bg-success': proyecto.progreso === 100,
+                        'bg-info': proyecto.progreso < 100
+                      }"
+                      role="progressbar"
+                      [style.width.%]="proyecto.progreso"
+                      [attr.aria-valuenow]="proyecto.progreso"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    >
+                      {{ proyecto.progreso }}%
+                    </div>
+                  </div>
+                  <p><strong>Asesor:</strong> {{ proyecto.asesor }}</p>
+                  <p><strong>Fecha de Inicio:</strong> {{ proyecto.fechaInicio | date }}</p>
+                  <p><strong>Fecha de Fin:</strong> {{ proyecto.fechaFin | date }}</p>
+                </div>
+                <div class="card-footer text-center">
+                  <button class="btn btn-secondary btn-sm" (click)="verDetalles(proyecto)">
+                    Ver Detalles
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Mostrar mensaje si no hay proyectos -->
+        <ng-template #noProyectos>
+          <div class="alert alert-warning text-center">
+            <strong>No tienes proyectos asignados en este momento.</strong>
+          </div>
+        </ng-template>
+      </div>
+      
+</main>

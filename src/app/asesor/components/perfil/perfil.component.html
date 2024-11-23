@@ -1,0 +1,88 @@
+<main class="main container" id="main">
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">Mi Perfil</h2>
+      
+        <!-- Información Personal -->
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Información Personal</h5>
+          </div>
+          <div class="card-body">
+            <form (submit)="guardarCambios()">
+              <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre Completo</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="nombre"
+                  [(ngModel)]="perfil.nombre"
+                  name="nombre"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Correo Electrónico</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  [(ngModel)]="perfil.email"
+                  name="email"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="telefono" class="form-label">Teléfono</label>
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="telefono"
+                  [(ngModel)]="perfil.telefono"
+                  name="telefono"
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            </form>
+          </div>
+        </div>
+      
+        <!-- Disponibilidad -->
+        <div class="card">
+          <div class="card-header bg-secondary text-white">
+            <h5 class="mb-0">Disponibilidad</h5>
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="mb-3">
+                <label for="disponible" class="form-label">Estado Actual</label>
+                <select
+                  id="disponible"
+                  class="form-select"
+                  [(ngModel)]="perfil.disponibilidad"
+                  name="disponibilidad"
+                >
+                  <option value="Disponible">Disponible para nuevas solicitudes</option>
+                  <option value="No Disponible">No disponible actualmente</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="maxProyectos" class="form-label">Máximo de Proyectos Activos</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="maxProyectos"
+                  [(ngModel)]="perfil.maxProyectos"
+                  name="maxProyectos"
+                  min="1"
+                  max="10"
+                />
+              </div>
+              <button type="button" class="btn btn-secondary" (click)="actualizarDisponibilidad()">
+                Actualizar Disponibilidad
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+</main>

@@ -1,0 +1,126 @@
+<main class="main container" id="main">
+    <div class="container my-4">
+        <h2 class="text-center mb-4">Gestión de Usuarios y Permisos</h2>
+      
+        <!-- Formulario para añadir o editar usuario -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">{{ usuarioSeleccionado.id ? 'Editar Usuario' : 'Agregar Usuario' }}</h5>
+            <form (ngSubmit)="guardarUsuario()">
+              <!-- Nombre del usuario -->
+              <div class="mb-3">
+                <label for="nombreUsuario" class="form-label">Nombre del Usuario</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="nombreUsuario"
+                  [(ngModel)]="usuarioSeleccionado.nombre"
+                  name="nombreUsuario"
+                  required
+                />
+              </div>
+      
+              <!-- Email del usuario -->
+              <div class="mb-3">
+                <label for="email" class="form-label">Correo Electrónico</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  [(ngModel)]="usuarioSeleccionado.email"
+                  name="email"
+                  required
+                />
+              </div>
+      
+              <!-- Rol del usuario -->
+              <div class="mb-3">
+                <label for="rol" class="form-label">Rol</label>
+                <select
+                  class="form-select"
+                  id="rol"
+                  [(ngModel)]="usuarioSeleccionado.rol"
+                  name="rol"
+                  required
+                >
+                  <option *ngFor="let rol of roles" [value]="rol">{{ rol }}</option>
+                </select>
+              </div>
+      
+              <!-- Botones -->
+              <button type="submit" class="btn btn-primary">
+                {{ usuarioSeleccionado.id ? 'Actualizar' : 'Agregar' }}
+              </button>
+              <button type="button" class="btn btn-secondary ms-2" (click)="cancelarEdicion()">Cancelar</button>
+            </form>
+          </div>
+        </div>
+          <!-- Tabla de usuarios -->
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead class="table-dark">
+        <tr>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Rol</th>
+          <th>Permisos</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of usuarios">
+          <td>{{ usuario.nombre }}</td>
+          <td>{{ usuario.email }}</td>
+          <td>{{ usuario.rol }}</td>
+          <td>
+            <span *ngFor="let permiso of usuario.permisos" class="badge bg-secondary me-1">
+              {{ permiso }}
+            </span>
+          </td>
+          <td>
+            <button class="btn btn-info btn-sm me-2" (click)="editarUsuario(usuario)">Editar</button>
+            <button class="btn btn-warning btn-sm me-2" (click)="editarPermisos(usuario)">Editar Permisos</button>
+            <button class="btn btn-danger btn-sm" (click)="eliminarUsuario(usuario)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Modal para editar permisos -->
+  <div class="modal fade" id="permisosModal" tabindex="-1" aria-labelledby="permisosModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="permisosModalLabel">Editar Permisos</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div *ngFor="let permiso of permisosDisponibles">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  [id]="permiso"
+                  [checked]="usuarioSeleccionado?.permisos?.includes(permiso)"
+                  (change)="togglePermiso(permiso, $event)"
+                />
+                <label class="form-check-label" [for]="permiso">
+                  {{ permiso }}
+                </label>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" (click)="guardarPermisos()">Guardar Permisos</button>
+        </div>
+      </div>
+    </div>
+  </div>
+      </div>
+      
+</main>
+
+

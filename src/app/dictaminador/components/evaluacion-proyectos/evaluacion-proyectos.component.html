@@ -1,0 +1,62 @@
+<main class="main container" id="main">
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">Evaluación de Proyectos</h2>
+      
+        <div *ngIf="proyectoSeleccionado; else noSeleccionado">
+          <div class="card">
+            <div class="card-header bg-primary text-white">
+              <h5 class="mb-0">Evaluando Proyecto: {{ proyectoSeleccionado.nombre }}</h5>
+            </div>
+            <div class="card-body">
+              <form (submit)="guardarEvaluacion()">
+                <!-- Calificación -->
+                <div class="mb-3">
+                  <label for="calificacion" class="form-label">Calificación</label>
+                  <select
+                    id="calificacion"
+                    class="form-select"
+                    [(ngModel)]="evaluacion.calificacion"
+                    name="calificacion"
+                    required
+                  >
+                    <option value="" disabled selected>Selecciona una calificación</option>
+                    <option *ngFor="let calificacion of [1, 2, 3, 4, 5]" [value]="calificacion">
+                      {{ calificacion }} Estrella{{ calificacion > 1 ? 's' : '' }}
+                    </option>
+                  </select>
+                </div>
+      
+                <!-- Comentarios -->
+                <div class="mb-3">
+                  <label for="comentarios" class="form-label">Comentarios</label>
+                  <textarea
+                    id="comentarios"
+                    class="form-control"
+                    [(ngModel)]="evaluacion.comentarios"
+                    name="comentarios"
+                    rows="4"
+                    placeholder="Escribe tus comentarios sobre el proyecto..."
+                    required
+                  ></textarea>
+                </div>
+      
+                <!-- Botones de Acción -->
+                <button type="submit" class="btn btn-success">Guardar Evaluación</button>
+                <button type="button" class="btn btn-secondary ms-2" (click)="cancelarEvaluacion()">
+                  Cancelar
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Mensaje si no hay proyecto seleccionado -->
+        <ng-template #noSeleccionado>
+          <div class="alert alert-info text-center">
+            <strong>Selecciona un proyecto desde la lista de asignados para iniciar la evaluación.</strong>
+          </div>
+        </ng-template>
+      </div>
+      
+      
+</main>

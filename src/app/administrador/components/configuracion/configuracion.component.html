@@ -1,0 +1,78 @@
+<main class="main container" id="main">
+    <div class="container my-4">
+        <h2 class="text-center mb-4">Configuración del Sistema</h2>
+      
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Ajustes Generales</h5>
+            <form (ngSubmit)="guardarConfiguracion()">
+              <!-- Límite de estudiantes por proyecto -->
+              <div class="mb-3">
+                <label for="limiteEstudiantes" class="form-label">Límite de Estudiantes por Proyecto</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="limiteEstudiantes"
+                  [(ngModel)]="config.limiteEstudiantes"
+                  name="limiteEstudiantes"
+                  required
+                  min="1"
+                />
+              </div>
+      
+              <!-- Máximo de asesores por línea de investigación -->
+              <div class="mb-3">
+                <label for="maxAsesores" class="form-label">Máximo de Asesores por Línea de Investigación</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="maxAsesores"
+                  [(ngModel)]="config.maxAsesores"
+                  name="maxAsesores"
+                  required
+                  min="1"
+                />
+              </div>
+      
+              <!-- Configuración adicional -->
+              <div class="mb-3">
+                <label for="configAdicional" class="form-label">Configuraciones Adicionales</label>
+                <textarea
+                  class="form-control"
+                  id="configAdicional"
+                  rows="4"
+                  [(ngModel)]="config.configAdicional"
+                  name="configAdicional"
+                  placeholder="Ejemplo: Horarios de asesorías, políticas de evaluación, etc."
+                ></textarea>
+              </div>
+      
+              <!-- Botones -->
+              <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary me-2">Guardar Cambios</button>
+                <button type="button" class="btn btn-secondary" (click)="reiniciarValores()">Reiniciar Valores</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      
+        <!-- Modal de confirmación -->
+        <div class="modal fade" id="confirmacionModal" tabindex="-1" aria-labelledby="confirmacionModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="confirmacionModalLabel">Confirmar Cambios</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <p>¿Estás seguro de que deseas guardar estos cambios en la configuración del sistema?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" (click)="confirmarGuardado()">Confirmar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </main>

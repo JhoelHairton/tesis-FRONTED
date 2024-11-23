@@ -1,0 +1,82 @@
+<main class="main container" id="main">
+
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">Bienvenido, {{ estudianteNombre }}</h2>
+      
+        <div class="row">
+          <!-- Tarjeta: Estado de Inscripción -->
+          <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+              <div class="card-header">Estado de Inscripción</div>
+              <div class="card-body">
+                <h5 class="card-title">{{ estadoInscripcion }}</h5>
+                <p class="card-text">
+                  {{ mensajeInscripcion }}
+                </p>
+              </div>
+            </div>
+          </div>
+      
+          <!-- Tarjeta: Estado de Pagos -->
+          <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+              <div class="card-header">Pagos Realizados</div>
+              <div class="card-body">
+                <h5 class="card-title">{{ pagosRealizados }}</h5>
+                <p class="card-text">
+                  {{ mensajePagos }}
+                </p>
+              </div>
+            </div>
+          </div>
+      
+          <!-- Tarjeta: Progreso del Proyecto -->
+          <div class="col-md-4">
+            <div class="card text-white bg-info mb-3">
+              <div class="card-header">Progreso del Proyecto</div>
+              <div class="card-body">
+                <h5 class="card-title">{{ progresoProyecto }}%</h5>
+                <div class="progress">
+                  <div
+                    class="progress-bar progress-bar-striped bg-warning"
+                    role="progressbar"
+                    [style.width.%]="progresoProyecto"
+                    [attr.aria-valuenow]="progresoProyecto"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  ></div>
+                </div>
+                <p class="mt-2">{{ mensajeProgreso }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Tabla Resumen: Inscripciones y Proyectos -->
+        <div class="mt-4">
+          <h4>Detalles Adicionales</h4>
+          <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+              <tr>
+                <th scope="col">Tipo</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Inscripción</td>
+                <td>{{ descripcionInscripcion }}</td>
+                <td>{{ estadoInscripcion }}</td>
+              </tr>
+              <tr>
+                <td>Proyecto</td>
+                <td>{{ descripcionProyecto }}</td>
+                <td>{{ estadoProyecto }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+</main>
