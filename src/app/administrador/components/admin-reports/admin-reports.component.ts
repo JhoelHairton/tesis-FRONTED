@@ -1,7 +1,4 @@
 import { Component } from '@angular/core';
-import { jsPDF } from 'jspdf';
-import { Color, ScaleType  } from '@swimlane/ngx-charts';
-
 
 @Component({
   selector: 'app-admin-reports',
@@ -12,46 +9,53 @@ export class AdminReportsComponent {
   
   tipoInforme: string | null = null;
   tituloInforme: string = '';
-  
-  colorScheme: Color = {
-    name: 'sequentialScheme',
-    selectable: true,
-    group: ScaleType.Ordinal, // Aquí usamos la enumeración correcta
-    domain: ['#f7fcf0', '#ccebc5', '#a8ddb5', '#7bccc4', '#43a2ca', '#0868ac'] 
-  };
 
-  // Datos de ejemplo
+  // Datos de los informes
   dataInscripciones = [
-    { name: 'Enero', value: 50 },
-    { name: 'Febrero', value: 80 },
-    { name: 'Marzo', value: 45 },
-    { name: 'Abril', value: 75 },
-    { name: 'Mayo', value: 60 }
+    { time: '2024-01-01', value: 100 },
+    { time: '2024-02-01', value: 200 },
+    { time: '2024-03-01', value: 150 },
+    { time: '2024-04-01', value: 250 }
   ];
 
   dataPagos = [
-    { name: 'Pagados', value: 300 },
-    { name: 'Pendientes', value: 120 },
-    { name: 'Atrasados', value: 30 }
+    { time: '2024-01-01', value: 5000 },
+    { time: '2024-02-01', value: 7000 },
+    { time: '2024-03-01', value: 3000 },
+    { time: '2024-04-01', value: 6000 }
   ];
 
   dataProyectos = [
-    { name: 'Inicio', value: 20 },
-    { name: 'Etapa 1', value: 50 },
-    { name: 'Etapa 2', value: 75 },
-    { name: 'Etapa 3', value: 100 }
+    { time: 'Etapa 1', value: 30 },
+    { time: 'Etapa 2', value: 60 },
+    { time: 'Etapa 3', value: 90 }
   ];
 
   dataAsesores = [
-    { name: 'Asesor A', value: 85 },
-    { name: 'Asesor B', value: 70 },
-    { name: 'Asesor C', value: 65 },
-    { name: 'Asesor D', value: 90 }
+    { time: '2024-01', value: 10 },
+    { time: '2024-02', value: 15 },
+    { time: '2024-03', value: 8 },
+    { time: '2024-04', value: 12 }
   ];
+
+  // Opciones para los gráficos
+  chartOptions = {
+    layout: {
+      backgroundColor: '#ffffff',
+      textColor: '#333333'
+    },
+    grid: {
+      vertLines: { color: '#eeeeee' },
+      horzLines: { color: '#eeeeee' }
+    }
+  };
+
+  constructor() {}
+
+  ngOnInit(): void {}
 
   seleccionarInforme(tipo: string): void {
     this.tipoInforme = tipo;
-
     switch (tipo) {
       case 'inscripciones':
         this.tituloInforme = 'Informe de Inscripciones';
@@ -65,18 +69,10 @@ export class AdminReportsComponent {
       case 'asesores':
         this.tituloInforme = 'Rendimiento de Asesores';
         break;
-      default:
-        this.tituloInforme = '';
     }
   }
 
   exportarPDF(): void {
-    const doc = new jsPDF();
-    doc.setFontSize(16);
-    doc.text(this.tituloInforme, 10, 10);
-    doc.setFontSize(12);
-    doc.text('Este es un informe generado automáticamente.', 10, 20);
-    doc.save(`${this.tituloInforme}.pdf`);
+    alert('Exportar informe en PDF (Funcionalidad por implementar)');
   }
-
 }

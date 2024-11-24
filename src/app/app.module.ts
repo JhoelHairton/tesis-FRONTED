@@ -11,10 +11,12 @@ import { UserModule } from './user/user.module'; // Import solo si no es lazy-lo
 
 import { CargarScriptsService } from './cargar-scripts.service';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { ChartComponent } from './informes/components/chart/chart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    ChartComponent,
     
   ],
   imports: [
