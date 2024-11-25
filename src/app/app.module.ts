@@ -12,6 +12,7 @@ import { UserModule } from './user/user.module'; // Import solo si no es lazy-lo
 import { CargarScriptsService } from './cargar-scripts.service';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ChartComponent } from './informes/components/chart/chart.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,9 @@ import { ChartComponent } from './informes/components/chart/chart.component';
     CoreModule,         // Importamos el módulo Core solo una vez
     SharedModule,
     UserModule,
-    NgxChartsModule
+    NgxChartsModule,
+    HttpClientModule
+    
     
     
   ],

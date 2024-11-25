@@ -17,7 +17,7 @@ const routes: Routes = [
     path: 'dashboard',
     component: EstudianteDashboardComponent,
     canActivate: [GuardService],
-    data: { expectedRole: 'student' },
+    data: { expectedRole: 'ESTUDIANTE' },
     children: [
       { path: '', component: InicioComponent }, // Página inicial del dashboard
       { path: 'inscripciones', component: InscripcionesComponent },

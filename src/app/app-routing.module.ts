@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LandingComponent } from './pages/landing/landing.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
-import { GuardService } from './core/services/guard.service';  // Importa el AuthGuard para proteger rutas
+import { GuardService } from './core/services/guard.service'; // Importa el AuthGuard para proteger rutas
 
 const routes: Routes = [
   { 
@@ -20,27 +20,27 @@ const routes: Routes = [
     path: 'administrador', 
     loadChildren: () => import('./administrador/administrador.module').then(m => m.AdministradorModule),
     canActivate: [GuardService],
-    data: { expectedRole: 'admin' }  // Solo accesible por usuarios con rol 'admin'
+    data: { expectedRole: 'ADMINISTRADOR' }  // Cambia 'admin' por 'ADMINISTRADOR'
   },
   { 
     path: 'asesor', 
     loadChildren: () => import('./asesor/asesor.module').then(m => m.AsesorModule),
     canActivate: [GuardService],
-    data: { expectedRole: 'advisor' }  // Solo accesible por usuarios con rol 'advisor'
+    data: { expectedRole: 'ASESOR' }  // Cambia 'advisor' por 'ASESOR'
   },
   { 
-    path: 'dictaminador', 
+    path: 'evaluador', 
     loadChildren: () => import('./dictaminador/dictaminador.module').then(m => m.DictaminadorModule),
     canActivate: [GuardService],
-    data: { expectedRole: 'dictaminador' }  // Solo accesible por usuarios con rol 'dictaminador'
+    data: { expectedRole: 'EVALUADOR' }  // Cambia 'dictaminador' por 'EVALUADOR'
   },
   { 
     path: 'estudiante', 
     loadChildren: () => import('./estudiante/estudiante.module').then(m => m.EstudianteModule),
     canActivate: [GuardService],
-    data: { expectedRole: 'student' }  // Solo accesible por usuarios con rol 'student'
+    data: { expectedRole: 'ESTUDIANTE' }  // Cambia 'student' por 'ESTUDIANTE'
   },
-
+  
   // Ruta comodín para manejar 404
   { path: '**', component: PageNotFoundComponent }
 ];

@@ -4,6 +4,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { UserRoutingModule } from './user-routing.module';
 import { FormsModule } from '@angular/forms';  // Importa FormsModule
+import { RouterModule } from '@angular/router';
 
 
 
@@ -17,7 +18,10 @@ import { FormsModule } from '@angular/forms';  // Importa FormsModule
   imports: [
     CommonModule,
     UserRoutingModule,
-    FormsModule
+    FormsModule,
+    RouterModule.forChild([
+      { path: 'login', component: LoginComponent }
+    ])
     
   ]
 })

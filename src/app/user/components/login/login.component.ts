@@ -5,10 +5,10 @@ import { AuthService } from '../../../core/services/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrls: ['./login.component.css'] // Nota: Asegúrate de que el nombre sea 'styleUrls' (con 's')
 })
-export class LoginComponent {
 
+export class LoginComponent {
   loginData = { email: '', password: '' };
   loginError = false;
 
@@ -20,6 +20,8 @@ export class LoginComponent {
         if (response) {
           localStorage.setItem('token', response.token);
           localStorage.setItem('role', response.role);
+
+          // Redirige al dashboard según el rol del usuario
           this.redirectToDashboard(response.role);
         } else {
           this.loginError = true;
@@ -27,23 +29,23 @@ export class LoginComponent {
       },
       (error) => {
         this.loginError = true;
-        console.error('Error de inicio de sesión', error);
+        console.error('Error de inicio de sesión:', error);
       }
     );
   }
 
   private redirectToDashboard(role: string) {
     switch (role) {
-      case 'admin':
+      case 'ADMINISTRADOR':
         this.router.navigate(['/administrador/dashboard']);
         break;
-      case 'advisor':
+      case 'ASESOR':
         this.router.navigate(['/asesor/dashboard']);
         break;
-      case 'dictaminador':
-        this.router.navigate(['/dictaminador/dashboard']);
+      case 'EVALUADOR':
+        this.router.navigate(['/evaluador/dashboard']);
         break;
-      case 'student':
+      case 'ESTUDIANTE':
         this.router.navigate(['/estudiante/dashboard']);
         break;
       default:

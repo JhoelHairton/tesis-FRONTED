@@ -21,7 +21,7 @@ const routes: Routes = [
     path: 'dashboard',
     component: AdminDashboardComponent,
     canActivate: [GuardService],
-    data: { expectedRole: 'admin' },
+    data: { expectedRole: 'ADMINISTRADOR' },
     children: [
       { path: '', component: AdminInicioComponent },  // Página de inicio del Dashboard
       { path: 'reportes', component: AdminReportsComponent },

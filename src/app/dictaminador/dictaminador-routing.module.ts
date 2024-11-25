@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'dashboard', 
     component: DictaminadorDashboardComponent,
     canActivate: [GuardService],
-    data: { expecteRole: 'dictaminador'},
+    data: { expecteRole: 'EVALUADOR'},
     children: [
       { path: '', component: InicioComponent },
       { path: 'proyectos-asignados', component: ProyectosAsignadosComponent },

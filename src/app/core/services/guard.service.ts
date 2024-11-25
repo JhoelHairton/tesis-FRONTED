@@ -1,22 +1,22 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GuardService {
+export class GuardService implements CanActivate {
+  constructor(private router: Router) {}
 
-  constructor(private authService: AuthService, private router: Router) {}
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    const token = localStorage.getItem('token'); // Verifica si hay un token
+    const userRole = localStorage.getItem('role'); // Obtiene el rol del usuario
+    const expectedRole = route.data['expectedRole']; // Obtiene el rol esperado de las rutas
 
-  canActivate(route: ActivatedRouteSnapshot): boolean {
-    const expectedRole = route.data['expectedRole'];
-    const role = this.authService.getRole();
-
-    if (this.authService.isAuthenticated() && role === expectedRole) {
-      return true;
+    if (token && userRole === expectedRole) {
+      return true; // Permite el acceso si los roles coinciden
     } else {
-      this.router.navigate(['/user/login']);
+      this.router.navigate(['/user/login']); // Redirige al login si no coincide
       return false;
     }
   }

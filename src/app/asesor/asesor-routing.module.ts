@@ -15,7 +15,7 @@ const routes: Routes = [
     path: 'dashboard',
     component: AsesorDashboardComponent,
     canActivate: [GuardService],
-    data: { expectedRole: 'advisor' },
+    data: { expectedRole: 'ASESOR' },
     children: [
 
       { path: '', component: InicioComponent },
